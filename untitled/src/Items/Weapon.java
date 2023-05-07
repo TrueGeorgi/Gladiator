@@ -4,9 +4,9 @@ public class Weapon {
 
     String name;
 
-    int attackSpeedIncrease;
+    int attackSpeedIncrease = 0;
 
-    int attackPowerIncrease;
+    int attackPowerIncrease = 0;
 
     int cost;
 

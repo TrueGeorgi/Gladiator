@@ -4,9 +4,9 @@ public class Shield {
 
     String name;
 
-    int defenceIncrease;
+    int defenceIncrease = 0;
 
-    int blockChance;                   // percentage
+    int blockChance =  0;                   // percentage
 
     int cost;
 

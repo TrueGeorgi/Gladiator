@@ -33,7 +33,7 @@ public class Main {
 
         System.out.println("******************************************************************************************");
 
-        System.out.println("I hope you can fight ... This person behind you is your new owner. A slave trader, gathering fighters for the arena.");
+        System.out.println("I hope you can fight, " + mainCharacter.getFirstName() + " ... This person behind you is your new owner. A slave trader, gathering fighters for the arena.");
         System.out.println("In other words, you are soon to become a Gladiator. I'm Lucius Aemilius. From the African provinces.");
         System.out.println("How about you? Where is your home?");
 
@@ -67,19 +67,16 @@ public class Main {
         System.out.println("******************************************************************************************");
         System.out.println("Before you and the other gladiators are set to fight your first munera, you get to train a bit.");
         System.out.println("Maybe earn something that might help you in the long run as well.");
-        Character dummy = new Character("Dummy", 5);
-        mainCharacter.setAttack(new Attack(1, 1));
+        Character dummy = new Character("Dummy", 3, 1, new Attack(1, 1));
+        mainCharacter.setAttack(new Attack(5, 1));
         mainCharacter.setHealth(10);
         mainCharacter.setDefence(1);
         mainCharacter.setEarnDenarius(5);
 
-        mainCharacter.setWeapon(weapons().get(0));
-        mainCharacter.setShield(shields().get(0));
-        mainCharacter.setArmor(armors().get(0));
-        mainCharacter.setHelmet(helmets().get(0));
-        mainCharacter.setBoots(boots().get(0));
-
         mainCharacterStats(mainCharacter);
+
+        List<Character> enemies = new ArrayList<>();
+        enemies.add(dummy);
 
         TRAIN:
 
@@ -118,10 +115,31 @@ public class Main {
         String action = correctLetterChosen(trainMenuLength);
 
         boolean continueAction = true;
+        boolean continueGame = true;
 
         while (continueAction) {
             switch (action) {
                 case "A":                                                      // train
+                    System.out.println("\"To start and see how things actually work you will fight one of the dummies we have here.");
+                    System.out.println("It is made out of straws, but be careful, it can still hit back...in a way.");
+                    System.out.println("Of course, as it is training and the Lanistae invested money in you, you won't be able to die in the training.");
+                    System.out.println("You will be able to train only once. If you don't get to try all the moves, you will have to adapt. Good luck!\"" );
+                    System.out.println("As you enter the training ground you saw Lucius Aemilius cut the head of one of the dummies with a precise swipe from the right with his Sword.");
+                    System.out.println("Its time for you to show your skills.");
+                    System.out.println();
+                    startingFightStats(mainCharacter, enemies.get(0));
+                    fight(mainCharacter, enemies.get(0));
+                    if (mainCharacter.isDeath()) {
+                        mainCharacter.setDeath(false);
+                        mainCharacter.setHealth(10);
+                        System.out.println("That was one hell of a Dummy...try again.");
+                        action = correctLetterChosen(trainMenuLength);
+                    } else if (enemies.get(0).isDeath()) {
+                        System.out.println("Well done! this was enough training for now. Get a good sleep.");
+                        System.out.println("Tomorrow will be your first real fight!");
+                        continueAction = false;
+                    }
+                    break;
                 case "B":                                                      // shop
                     System.out.println("Do you want to: ");
                     System.out.println("A. Buy");
@@ -133,7 +151,7 @@ public class Main {
                         char letterToBuyChar = letterToBuy.charAt(0);
                         int numberToBuy = 0;
                         if (letterToBuyChar >= 65 && letterToBuyChar <= 69) {
-                            numberToBuy = letterToBuyChar - 65;
+                            numberToBuy = letterToBuyChar - 64;
                             Weapon toBeBought = weapons().get(numberToBuy);
                             boolean canIBuyIt = canYouBuyIt(toBeBought.getCost(), mainCharacter);
                             if (canIBuyIt) {
@@ -141,12 +159,13 @@ public class Main {
                                 int denarius = mainCharacter.getDenarius();
                                 int difference = denarius - itemCost;
                                 mainCharacter.setDenarius(difference);
-                                System.out.printf("You have bought %s for %d. You have %d left.", toBeBought.getName(), itemCost, difference);
+                                mainCharacter.setWeapon(toBeBought);
+                                System.out.printf("You have bought %s for %d denarius. You have %d denarius left.%n", toBeBought.getName(), itemCost, difference);
                             } else {
                                 System.out.println("You don't have enough money to but this item.");
                             }
                         } else if (letterToBuyChar >= 70 && letterToBuyChar <= 74) {
-                            numberToBuy = letterToBuyChar - 70;
+                            numberToBuy = letterToBuyChar - 69;
                             Shield toBeBought = shields().get(numberToBuy);
                             boolean canIBuyIt = canYouBuyIt(toBeBought.getCost(), mainCharacter);
                             if (canIBuyIt) {
@@ -154,12 +173,13 @@ public class Main {
                                 int denarius = mainCharacter.getDenarius();
                                 int difference = denarius - itemCost;
                                 mainCharacter.setDenarius(difference);
-                                System.out.printf("You have bought %s for %d. You have %d left.", toBeBought.getName(), itemCost, difference);
+                                mainCharacter.setShield(toBeBought);
+                                System.out.printf("You have bought %s for %d denarius. You have %d denarius left.%n", toBeBought.getName(), itemCost, difference);
                             } else {
                                 System.out.println("You don't have enough money to but this item.");
                             }
                         } else if (letterToBuyChar >= 75 && letterToBuyChar <= 79) {
-                            numberToBuy = letterToBuyChar - 75;
+                            numberToBuy = letterToBuyChar - 74;
                             DefenceAttire toBeBought = armors().get(numberToBuy);
                             boolean canIBuyIt = canYouBuyIt(toBeBought.getCost(), mainCharacter);
                             if (canIBuyIt) {
@@ -167,12 +187,13 @@ public class Main {
                                 int denarius = mainCharacter.getDenarius();
                                 int difference = denarius - itemCost;
                                 mainCharacter.setDenarius(difference);
-                                System.out.printf("You have bought %s for %d. You have %d left.", toBeBought.getName(), itemCost, difference);
+                                mainCharacter.setArmor(toBeBought);
+                                System.out.printf("You have bought %s for %d denarius. You have %d denarius left.%n", toBeBought.getName(), itemCost, difference);
                             } else {
                                 System.out.println("You don't have enough money to but this item.");
                             }
                         } else if (letterToBuyChar >= 80 && letterToBuyChar <= 84) {
-                            numberToBuy = letterToBuyChar - 80;
+                            numberToBuy = letterToBuyChar - 79;
                             DefenceAttire toBeBought = helmets().get(numberToBuy);
                             boolean canIBuyIt = canYouBuyIt(toBeBought.getCost(), mainCharacter);
                             if (canIBuyIt) {
@@ -180,12 +201,13 @@ public class Main {
                                 int denarius = mainCharacter.getDenarius();
                                 int difference = denarius - itemCost;
                                 mainCharacter.setDenarius(difference);
-                                System.out.printf("You have bought %s for %d. You have %d left.", toBeBought.getName(), itemCost, difference);
+                                mainCharacter.setHelmet(toBeBought);
+                                System.out.printf("You have bought %s for %d denarius. You have %d denarius left.%n", toBeBought.getName(), itemCost, difference);
                             } else {
                                 System.out.println("You don't have enough money to but this item.");
                             }
                         } else if (letterToBuyChar >= 85 && letterToBuyChar <= 89) {
-                            numberToBuy = letterToBuyChar - 85;
+                            numberToBuy = letterToBuyChar - 84;
                             DefenceAttire toBeBought = boots().get(numberToBuy);
                             boolean canIBuyIt = canYouBuyIt(toBeBought.getCost(), mainCharacter);
                             if (canIBuyIt) {
@@ -193,20 +215,26 @@ public class Main {
                                 int denarius = mainCharacter.getDenarius();
                                 int difference = denarius - itemCost;
                                 mainCharacter.setDenarius(difference);
-                                System.out.printf("You have bought %s for %d. You have %d left.", toBeBought.getName(), itemCost, difference);
+                                mainCharacter.setBoots(toBeBought);
+                                System.out.printf("You have bought %s for %d denarius. You have %d denarius left.%n", toBeBought.getName(), itemCost, difference);
                             } else {
                                 System.out.println("You don't have enough money to but this item.");
                             }
                         }
                     } else {
-
+                        sellItems(mainCharacter);
                     }
+                    System.out.println("What action would you like to take?");
+                    trainMenu();
+                    action = correctLetterChosen(trainMenuLength);
+                    break;
                 case "C":                                                      // stats
                     mainCharacterStats(mainCharacter);
                     System.out.println("What do you want to do next?");
                     System.out.println();
                     trainMenu();
                     action = correctLetterChosen(trainMenuLength);
+                    break;
                 case "D":                                                     // inventory
                     mainCharacterEquipment(
                             mainCharacter,
@@ -220,8 +248,15 @@ public class Main {
                     System.out.println();
                     trainMenu();
                     action = correctLetterChosen(trainMenuLength);
+                    break;
                 case "E":                                                     // exit
+                    continueAction = false;
+                    continueGame = false;
+                    break;
             }
+        }
+        while (continueGame) {
+
         }
     }
 
@@ -276,14 +311,14 @@ public class Main {
         while (!isCorrect) {
             if (input.length() != 1) {
                 System.out.println("Please type down the letter of the action you want to take.");
-                input = scanner.nextLine();
+                input = scanner.nextLine().toUpperCase();
             } else {
                 char letter = input.charAt(0);
                 if (letter >= 65 && letter < 65 + length) {
                     isCorrect = true;
                 } else {
                     System.out.println("Please type down the letter of the action you want to take.");
-                    input = scanner.nextLine();
+                    input = scanner.nextLine().toUpperCase();
                 }
             }
         }
@@ -292,10 +327,10 @@ public class Main {
 
     public static void trainMenu() {
         System.out.println("A. Train");                             // Not done
-        System.out.println("B. Shop");                              // Not done
+        System.out.println("B. Shop");                              // DONE
         System.out.println("C. Look at your stats");                // DONE
         System.out.println("D. Look in your inventory");            // DONE
-        System.out.println("E. Exit the game");                     // Not done
+        System.out.println("E. Exit the game");                     // DONE
     }
 
     public static void mainCharacterStats(Character mainCharacter) {
@@ -304,6 +339,7 @@ public class Main {
         System.out.println("Attack power: " + mainCharacter.getAttackPower());
         System.out.println("Attack speed: " + mainCharacter.getAttackSpeed());
         System.out.println("Defence: " + mainCharacter.getDefence());
+        System.out.println("Your chance to block is: " + mainCharacter.getBlockChance() + "%");
         System.out.println("You also own " + mainCharacter.getDenarius() + " Denarius");
     }
 
@@ -524,10 +560,10 @@ public class Main {
         System.out.println("E: " + weapons().get(5).getName() + " for " + weapons().get(5).getCost() + " denarius");
         System.out.println("Shields: ");
         System.out.println("F: " + shields().get(1).getName() + " for " + shields().get(1).getCost() + " denarius");
-        System.out.println("G: " + shields().get(2).getName() + " for " + shields().get(1).getCost() + " denarius");
-        System.out.println("H: " + shields().get(3).getName() + " for " + shields().get(2).getCost() + " denarius");
-        System.out.println("I: " + shields().get(4).getName() + " for " + shields().get(3).getCost() + " denarius");
-        System.out.println("J: " + shields().get(5).getName() + " for " + shields().get(4).getCost() + " denarius");
+        System.out.println("G: " + shields().get(2).getName() + " for " + shields().get(2).getCost() + " denarius");
+        System.out.println("H: " + shields().get(3).getName() + " for " + shields().get(3).getCost() + " denarius");
+        System.out.println("I: " + shields().get(4).getName() + " for " + shields().get(4).getCost() + " denarius");
+        System.out.println("J: " + shields().get(5).getName() + " for " + shields().get(5).getCost() + " denarius");
         System.out.println("Armors: ");
         System.out.println("K: " + armors().get(1).getName() + " for " + armors().get(1).getCost() + " denarius");
         System.out.println("L: " + armors().get(2).getName() + " for " + armors().get(2).getCost() + " denarius");
@@ -566,6 +602,138 @@ public class Main {
                 && mainCharacter.getBoots().getName().equals("none")
         && mainCharacter.getInventorySize() == 0) {
             System.out.println("You have nothing to sell.");
+        } else {
+            char letter = 65;
+            System.out.println("What do you want to sell");
+            char weaponLetter = 1;
+            char shieldLetter = 1;
+            char armorLetter = 1;
+            char helmetLetter = 1;
+            char bootsLetter = 1;
+            if (!mainCharacter.getWeapon().getName().equals("none")) {
+                System.out.printf("%c. Your %s weapon for %d denarius%n",
+                        letter, mainCharacter.getWeapon().getName(), mainCharacter.getWeapon().getSellPrice());
+                 weaponLetter = letter;
+                letter++;
+            }
+            if (!mainCharacter.getShield().getName().equals("none")) {
+                System.out.printf("%c. Your %s shield for %d denarius%n",
+                        letter, mainCharacter.getShield().getName(), mainCharacter.getShield().getSellPrice());
+                 shieldLetter = letter;
+                letter++;
+            }
+            if (!mainCharacter.getArmor().getName().equals("none")) {
+                System.out.printf("%c. Your %s armor for %d denarius%n",
+                        letter, mainCharacter.getArmor().getName(), mainCharacter.getArmor().getSellPrice());
+                 armorLetter = letter;
+                letter++;
+            }
+            if (!mainCharacter.getHelmet().getName().equals("none")) {
+                System.out.printf("%c. Your %s helmet for %d denarius%n",
+                        letter, mainCharacter.getHelmet().getName(), mainCharacter.getHelmet().getSellPrice());
+                 helmetLetter = letter;
+                letter++;
+            }
+            if (!mainCharacter.getBoots().getName().equals("none")) {
+                System.out.printf("%c. Your %s boots for %d denarius%n",
+                        letter, mainCharacter.getBoots().getName(), mainCharacter.getBoots().getSellPrice());
+                 bootsLetter = letter;
+                letter++;
+            }
+            String letterSellString = correctLetterChosen(letter - 65);
+            char letterSell = letterSellString.charAt(0);
+            int sellPrice;
+            if (letterSell == weaponLetter) {
+                 sellPrice = mainCharacter.getWeapon().getSellPrice();
+                mainCharacter.setEarnDenarius(sellPrice);
+                mainCharacter.setWeapon(weapons().get(0));
+            } else if (letterSell == shieldLetter) {
+                sellPrice = mainCharacter.getShield().getSellPrice();
+                mainCharacter.setEarnDenarius(sellPrice);
+                mainCharacter.setShield(shields().get(0));
+            } else  if (letterSell == armorLetter) {
+                sellPrice = mainCharacter.getArmor().getSellPrice();
+                mainCharacter.setEarnDenarius(sellPrice);
+                mainCharacter.setArmor(armors().get(0));
+            } else if (letterSell == helmetLetter) {
+                sellPrice = mainCharacter.getHelmet().getSellPrice();
+                mainCharacter.setEarnDenarius(sellPrice);
+                mainCharacter.setHelmet(helmets().get(0));
+            } else if (letterSell == bootsLetter) {
+                sellPrice = mainCharacter.getBoots().getSellPrice();
+                mainCharacter.setEarnDenarius(sellPrice);
+                mainCharacter.setBoots(boots().get(0));
+            }
         }
     }
-}
+
+    public static void startingFightStats (Character mainCharacter, Character enemy) {
+        System.out.printf("%s %s  VS  %s %s%n",
+                mainCharacter.getFirstName(),
+                mainCharacter.getLastName(),
+                enemy.getFirstName(),
+                enemy.getLastName());
+        System.out.println();
+        System.out.println("Health: " + mainCharacter.getHealth() + " : " + enemy.getHealth());
+        System.out.println("Attack power: " + mainCharacter.getAttackPower() + " : " + enemy.getAttackPower());
+        System.out.println("Attack speed: " + mainCharacter.getAttackSpeed() + " : " + enemy.getAttackSpeed());
+        System.out.println("Defence: " + mainCharacter.getDefence() + " : " + mainCharacter.getDefence());
+    }
+
+    public static void fight (Character mainCharacter, Character enemy) {
+        Random random = new Random();
+
+        int whosTurnIsIt = random.nextInt(2) + 1;
+
+        if (whosTurnIsIt % 2 == 0) {
+            System.out.println("The first move is yours!");
+        } else {
+            System.out.println(enemy.getFirstName() + " " + enemy.getLastName() + " has will make the first move.");
+        }
+
+        int characterHealth = mainCharacter.getHealth();
+        int enemyHealth = enemy.getHealth();
+        String move = "";
+
+        while (!mainCharacter.isDeath() && !enemy.isDeath()) {
+            if (whosTurnIsIt % 2 == 0) {
+                System.out.println("Choose an action: ");
+                System.out.println("A. Attack");
+                move = correctLetterChosen(1);
+                switch (move) {
+                    case "A":
+                        hitOrMiss(mainCharacter, enemy);
+                        break;
+                }
+
+                whosTurnIsIt++;
+            } else {
+                move = correctLetterChosen(1);
+                switch (move) {
+                    case "A":
+                        System.out.println("The decides to attack you!");
+                        hitOrMiss(enemy, mainCharacter);
+                        break;
+                }
+                whosTurnIsIt++;
+            }
+        }
+    }
+    public static void hitOrMiss (Character characterAttack, Character characterDefence) {
+        Random random = new Random();
+        int hitOrMiss = random.nextInt( 10) + 1;
+        if (hitOrMiss > characterAttack.getAttackSpeed()) {
+            System.out.println("The attacked missed its Target.");
+        } else {
+            if (characterAttack.getAttackPower() >= characterDefence.getDefence() / 3) {
+                int damage = characterAttack.getAttackPower() - characterDefence.getDefence() / 3;
+                characterDefence.looseHealth(damage);
+                if (characterDefence.getHealth() <= 0) {
+                    characterDefence.setDeath(true);
+                }
+            } else {
+                System.out.println("The damage will always be 0...Defence of " + characterDefence.getFirstName() + " is simply too great.");
+            }
+        }
+    }
+ }
