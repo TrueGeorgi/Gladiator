@@ -67,10 +67,10 @@ public class Main {
         System.out.println("******************************************************************************************");
         System.out.println("Before you and the other gladiators are set to fight your first munera, you get to train a bit.");
         System.out.println("Maybe earn something that might help you in the long run as well.");
-        Character dummy = new Character("Dummy", 3, 1, new Attack(1, 1));
+        Character dummy = new Character("Dummy", "The Straw man", 3, 0, new Attack(1, 1));
         mainCharacter.setAttack(new Attack(5, 1));
         mainCharacter.setHealth(10);
-        mainCharacter.setDefence(1);
+        mainCharacter.setDefence(0);
         mainCharacter.setEarnDenarius(5);
 
         mainCharacterStats(mainCharacter);
@@ -135,7 +135,9 @@ public class Main {
                         System.out.println("That was one hell of a Dummy...try again.");
                         action = correctLetterChosen(trainMenuLength);
                     } else if (enemies.get(0).isDeath()) {
-                        System.out.println("Well done! this was enough training for now. Get a good sleep.");
+                        System.out.println("The Dummy fell to the ground like a sack of potatoes.");
+                        System.out.println("----------------------------------------------------------------------------");
+                        System.out.println("Well done! This was enough training for now. Get a good sleep.");
                         System.out.println("Tomorrow will be your first real fight!");
                         continueAction = false;
                     }
@@ -259,13 +261,19 @@ public class Main {
         boolean won = false;
 
         while (continueGame) {
-
+            System.out.println("**************************************************************************");
+            System.out.println();
+            System.out.println("Wake up, you lazy bastards! Today is your first real bit, as gladiators.");
+            System.out.println("For many of you, it will be your last. Since the master has paid money for you, he wants to help you return his investment.");
+            System.out.println("For this, each of you will receive 15 demarius. Use them wisely.");
+            System.out.println("If by some chance you survive today, you will have the opportunity to earn more.");
+            mainCharacter.setEarnDenarius(15);
         }
 
         if (!mainCharacter.isDeath() && !won) {
-            System.out.println("You have decided to not play the games of the rich and stand up");
-            System.out.println("for your rights. Unfortunately you don't have any. Your Lanistae was sick off you");
-            System.out.println("and ordered for you to be publicly executed.");
+            System.out.println("You have decided not to play the games of the rich and stand up for your rights.");
+            System.out.println("Unfortunately you don't have any.");
+            System.out.println("Your Lanistae was sick off you and ordered for you to be publicly executed.");
             System.out.println("Oh, how nice would have been to be able to see the beautiful");
             System.out.println("fields of " + mainCharacter.getHomeProvince() + " just one more time.");
         } else if (!mainCharacter.isDeath() && won) {
@@ -711,7 +719,7 @@ public class Main {
         if (whosTurnIsIt % 2 == 0) {
             System.out.println("The first move is yours!");
         } else {
-            System.out.println(enemy.getFirstName() + " " + enemy.getLastName() + " has will make the first move.");
+            System.out.println(enemy.getFirstName() + " " + enemy.getLastName() + " will make the first move.");
         }
 
         int characterHealth = mainCharacter.getHealth();
@@ -731,10 +739,12 @@ public class Main {
 
                 whosTurnIsIt++;
             } else {
-                move = correctLetterChosen(1);
+                int moveInt = random.nextInt(1) + 1;
+                char moveChar = (char) (64 +  moveInt);
+                move = String.valueOf(moveChar);
                 switch (move) {
                     case "A":
-                        System.out.println("The decides to attack you!");
+                        System.out.println(enemy.getFirstName() + " decides to attack you!");
                         hitOrMiss(enemy, mainCharacter);
                         break;
                 }
@@ -744,19 +754,28 @@ public class Main {
     }
     public static void hitOrMiss (Character characterAttack, Character characterDefence) {
         Random random = new Random();
-        int hitOrMiss = random.nextInt( 10) + 1;
-        if (hitOrMiss > characterAttack.getAttackSpeed()) {
-            System.out.println("The attacked missed its Target.");
-        } else {
-            if (characterAttack.getAttackPower() >= characterDefence.getDefence() / 3) {
-                int damage = characterAttack.getAttackPower() - characterDefence.getDefence() / 3;
-                characterDefence.looseHealth(damage);
-                if (characterDefence.getHealth() <= 0) {
-                    characterDefence.setDeath(true);
-                }
-            } else {
-                System.out.println("The damage will always be 0...Defence of " + characterDefence.getFirstName() + " is simply too great.");
-            }
-        }
+       int hitChance = characterAttack.getAttackSpeed();
+       int missNumber = random.nextInt(5) + 1;
+       if (missNumber > hitChance) {
+           System.out.println("The attack has missed it's target.");
+       } else {
+           int blockChance = characterDefence.getBlockChance();    // percentage
+           int blockNumber = random.nextInt(100);
+           if (blockNumber <= blockChance) {
+               System.out.println("The attack was blocked");
+           } else {
+               int damage = characterAttack.getAttackPower() - characterDefence.getDefence();
+               if (damage <= 0) {
+                   System.out.println("The attack power is not enough");
+                   System.out.println("Attack power: " + characterAttack.getAttackPower());
+                   System.out.println("Defence: " + characterDefence.getDefence());
+               } else {
+                   characterDefence.looseHealth(damage);
+                   System.out.println(characterAttack.getFirstName() + " dealt " + damage + " damage to " + characterDefence.getFirstName());
+                   System.out.println(characterAttack.getFirstName() + " has " + characterAttack.getHealth() + " life points left.");
+                   System.out.println(characterDefence.getFirstName() + " has " + characterDefence.getHealth() + " life points left.");
+               }
+           }
+       }
     }
  }

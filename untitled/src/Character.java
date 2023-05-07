@@ -193,6 +193,9 @@ public class Character {
 
     public void looseHealth (int damage) {
         this.health -= damage;
+        if (this.health == 0) {
+            this.death = true;
+        }
     }
 
     public void setDeath(boolean death) {
