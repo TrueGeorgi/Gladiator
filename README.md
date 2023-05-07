@@ -1,16 +1,16 @@
 # Gladiator
 A RPG game, where you take the role of a Gladiator, try to survive and win your freedom. The game is written only on Java and Intellij IDEA.
 
-Still in progress
+## Still in progress
 
-## 05.05.2023 Update
+### 05.05.2023 Update
 
 I have created the begging of the game. Up to the point before the first fight. 
   The classes for the items and Character were created. The Main character, plus the starting options were added. 
   For now the player can create his Character with name and Last name, choose a region and reach the moment before the first fight.
   The first menu was created where the player can either - Buy or sell items, see his current stats and inventory, exit the game completly or start the training. 
   
-## 07.05.2023
+### 07.05.2023 Update
 
 the Menu is almost ready, execept for the option to train. The fighting simulation needs to be updated as it does not work properly. 
 Some of the main issues so far were cleared as:
