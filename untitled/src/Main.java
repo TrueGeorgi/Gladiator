@@ -263,7 +263,7 @@ public class Main {
         }
 
         if (!mainCharacter.isDeath() && !won) {
-            System.out.println("You have decided to don't play the games of the rich and stand up");
+            System.out.println("You have decided to not play the games of the rich and stand up");
             System.out.println("for your rights. Unfortunately you don't have any. Your Lanistae was sick off you");
             System.out.println("and ordered for you to be publicly executed.");
             System.out.println("Oh, how nice would have been to be able to see the beautiful");
@@ -277,7 +277,7 @@ public class Main {
         System.out.println();
         System.out.println("Thanks for playing \"Gladiator\" a game created by Georgi Iliev");
         System.out.println();
-        System.out.println("If you would like to send your feedback, please do so by sending an e-mail to:");
+        System.out.println("If you like to send your feedback, please do so by sending an e-mail to:");
         System.out.println("Georgi.iliev9191@gmail.com");
         System.out.println();
         System.out.println("The game can be enjoyed for free, as long as it is not distributed without my permission.");
