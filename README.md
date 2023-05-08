@@ -26,3 +26,13 @@ Some of the main issues so far were cleared as:
   * Intro part is clear.
   * Made some other minor editting
   * Minor changes on the main code.
+
+### 08.05.2023 Update
+  * Completed the main core of the game
+  * Added all the enemies
+  * Fix some bugs like:
+    * When the health droped below zero the Character was not death.
+    * The Main Character was fighting only against the Dummy
+    * No Character had Block chance added to their stats
+    * And a few other minor ones.
+  * Removed some unnecessary code.
