@@ -56,11 +56,22 @@ public class Character {
         this.attack = attack;
     }
 
-    public Character(String firstName, String lastName, int health, int defence, Attack attack) {
+    public Character(String firstName, String lastName, int health, int defence, int blockChance, Attack attack) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.health = health;
         this.defence = defence;
+        this.blockChance = blockChance;
+        this.attack = attack;
+    }
+
+    public Character(String firstName, String lastName, String homeProvince, int health, int defence, int blockChance, Attack attack) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.homeProvince = homeProvince;
+        this.health = health;
+        this.defence = defence;
+        this.blockChance = blockChance;
         this.attack = attack;
     }
 
@@ -193,6 +204,9 @@ public class Character {
 
     public void looseHealth (int damage) {
         this.health -= damage;
+        if (this.health < 0) {
+            this.health = 0;
+        }
         if (this.health == 0) {
             this.death = true;
         }
