@@ -306,11 +306,11 @@ public class Main {
                         if (mainCharacter.isDeath()) {
                             System.out.println("You died.");
                             continueAction = false;
+                            continueGame = false;
                         } else if (enemies.get(0).isDeath()) {
                             System.out.println("You won " + roundString + "!!!");
                             continueAction = false;
                         }
-
                         break;
                     case "B":
                         System.out.println("Do you want to: ");
