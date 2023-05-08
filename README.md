@@ -1,5 +1,5 @@
 # Gladiator
-My biggest Project so far - RPG game, where you take the role of a Gladiator, try to survive and win your freedom. The game is written only on Java and Intellij IDEA.
+RPG text-based game, where you take the role of a Gladiator, try to survive and win your freedom. The game is written only with Java and on Intellij IDEA.
 
 ## Still in progress
 
