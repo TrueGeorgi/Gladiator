@@ -36,3 +36,4 @@ Some of the main issues so far were cleared as:
     * No Character had Block chance added to their stats
     * And a few other minor ones.
   * Removed some unnecessary code.
+  * When the main character, died the came continued.
