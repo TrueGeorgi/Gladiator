@@ -15,7 +15,7 @@ I have created the begging of the game. Up to the point before the first fight.
 the Menu is almost ready, execept for the option to train. The fighting simulation needs to be updated as it does not work properly. 
 Some of the main issues so far were cleared as:
   * When you buy an item, the stats were not added to your Character's stats.
-  * Sometimes when the player tries to buy an item, another one is bought.
+  * Sometimes when the player tries to buy an item, another itmes was bought.
   * When you buy an item, the previus item was replaced, but his bonuses were not removed from the character.
   * If the player choice an option from the menu and then needs to choose again the second choice was not executed correctly
   * And some other small misfunctons.
