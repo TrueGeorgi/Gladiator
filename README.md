@@ -37,3 +37,6 @@ Some of the main issues so far were cleared as:
     * And a few other minor ones.
   * Removed some unnecessary code.
   * When the main character, died the game continued.
+
+### 10.05.2023 Update
+  * Did some edditing. Gramma check and some Text separation for easier reading.
