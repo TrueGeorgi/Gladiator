@@ -12,14 +12,15 @@ public class Main {
 
         System.out.println("******************************************************************************************");
 
-        System.out.println("So many noises around you. Footsteps, talking, screaming ");
-        System.out.println("\"Come, bring it faster you idiots. The sun is killing me...\"");
-        System.out.println("The person was right next to you, but still, you have decided to keep your eyes closed.");
-        System.out.println("Lying there on the warm ground, seeing just dark, was kind of peaceful.");
-        System.out.println("They can scream as much as they want. A small stone flew right at your head.");
-        System.out.println("Someone must have kicked it pacing somewhere. You finally decide to open your eyes.");
+        System.out.println("So many noises around you. Footsteps, talking, screaming: ");
+        System.out.println("- \"Come! Bring it here faster, you idiots. The sun is killing me...\"");
+        System.out.println("The person complaining was right next to you, but still, you have decided to keep your eyes closed.");
+        System.out.println("Lying there on the warm ground, seeing just dark, was kind of peaceful. They can scream as much as they want.");
+        System.out.println("A small stone flew right at your head. Someone must have kicked it, pacing somewhere.");
+        System.out.println("You finally decide to open your eyes.");
         System.out.println("You were in a cage with around 10 other people. One of them was looking at you with an emotionless face.");
-        System.out.println("You sat up, trying not to look at him, but he kept staring at you. \"What is your name?\" he asked.");
+        System.out.println("You sat up, trying not to look at him, but he kept staring at you.\n" +
+                "- \"What is your name?\" he asked.");
 
         System.out.println("******************************************************************************************");
 
@@ -33,9 +34,9 @@ public class Main {
 
         System.out.println("******************************************************************************************");
 
-        System.out.println("I hope you can fight, " + mainCharacter.getFirstName() + " ... This person behind you is your new owner. A slave trader, gathering fighters for the arena.");
+        System.out.println("- \"I hope you can fight, " + mainCharacter.getFirstName() + " ... This person behind you is your new owner. A slave trader, gathering fighters for the arena.");
         System.out.println("In other words, you are soon to become a Gladiator. I'm Lucius Aemilius. From the African provinces.");
-        System.out.println("How about you? Where is your home?");
+        System.out.println("How about you? Where is your home?\"");
 
         Character luciusAemilius = new Character("Lucius", "Aemilius", "Africa", 13, 5, 39, new Attack(4, 7));
 
@@ -54,9 +55,12 @@ public class Main {
         System.out.println();
         System.out.println("******************************************************************************************");
 
-        System.out.println("Ok, " + mainCharacter.getFirstName() + " " + mainCharacter.getLastName() + " from " + mainCharacter.getHomeProvince() + ".");
-        System.out.println("\"We are probably going to leave any moment soon. As far as I understood we are heading to Pula, Venetia et Histria.\"");
-        System.out.println("\"Lets go, you lazy donkeys\". What a miserable man this slave trader is, you thought.");
+        System.out.println("- \"Ok, " + mainCharacter.getFirstName() + " " + mainCharacter.getLastName() + " from " + mainCharacter.getHomeProvince() + ".");
+        System.out.println("We are probably going to leave any moment soon. As far as I understood we are heading to Pula, Venetia et Histria.\"");
+        System.out.println();
+        System.out.println("Lucius Aemilius gave you the chills, but in the same time you felt like you might be able to trust him.");
+        System.out.println();
+        System.out.println("- \"Lets go, you lazy donkeys\". Screamed your new master. What a miserable man this slave trader is, you thought.");
         System.out.println("After a couple of days of traveling, you have finally arrived at Pula.");
         System.out.println("The Amphitheatre was majestic, a beautiful place to die maybe. But no...you are here to survive.");
         System.out.println("The slave trader said that your new lanistae, was a man of honor.");
@@ -163,6 +167,7 @@ public class Main {
                     mainCharacter.setHealth(10);
                     break;
                 case "B":                                                      // shop
+                    System.out.println("******************************************************************************************");
                     System.out.println("Do you want to: ");
                     System.out.println("A. Buy");
                     System.out.println("B. Sell");
@@ -532,6 +537,7 @@ public class Main {
     }
 
     public static void mainCharacterStats(Character mainCharacter) {
+        System.out.println("******************************************************************************************");
         System.out.println("Your starting stats are as followed: ");
         System.out.println("Health: " + mainCharacter.getHealth());
         System.out.println("Attack power: " + mainCharacter.getAttackPower());
@@ -539,6 +545,7 @@ public class Main {
         System.out.println("Defence: " + mainCharacter.getDefence());
         System.out.println("Your chance to block is: " + mainCharacter.getBlockChance() + "%");
         System.out.println("You also own " + mainCharacter.getDenarius() + " Denarius");
+        System.out.println("******************************************************************************************");
     }
 
     public static void mainCharacterEquipment(Character mainCharacter,
